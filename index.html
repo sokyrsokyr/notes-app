@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Список заметок</title>
     <link rel="stylesheet" href="style.css">
-    
 </head>
 <body>
 
@@ -16,15 +15,12 @@
 
     <ul id="notesList"></ul>
 
-    <!-- Подключаем полную версию Firebase (модульную) -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
+    <!-- 🔥 ПРАВИЛЬНОЕ ПОДКЛЮЧЕНИЕ FIREBASE (КОМПАТИБЕЛЬНАЯ ВЕРСИЯ) -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
 
-    <!-- Подключаем скрипт с инициализацией Firebase -->
-    <script src="script.js" defer></script>
-
-
-
+    <!-- Подключаем наш JavaScript (ВАЖНО: ДОЛЖЕН БЫТЬ ПОСЛЕ FIREBASE) -->
+    <script src="script.js"></script>
 
 </body>
 </html>

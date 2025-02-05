@@ -1,8 +1,4 @@
-// Импортируем модули Firebase
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-import { getDatabase, ref, onValue, set, remove } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
-
-// Конфигурация Firebase
+// 🔥 Конфигурация Firebase
 const firebaseConfig = {
     apiKey: "AIzaSyDVl5kDmJnhKxxayNrfieRJ4W0oAGFWIGM",
     authDomain: "notes-app-2d26e.firebaseapp.com",
@@ -13,27 +9,33 @@ const firebaseConfig = {
     appId: "1:237083753552:web:041cea721cf41147e42555"
 };
 
-// Инициализируем Firebase
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
+// 🔥 Инициализируем Firebase (ИМЕННО ТАК!)
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
 
-// Проверяем, загружается ли Firebase
-console.log("Firebase загружается:", app);
+// 🔹 DOM-элементы
+const noteInput = document.getElementById("noteInput");
+const addNoteButton = document.getElementById("addNoteButton");
+const clearNotesButton = document.getElementById("clearNotesButton");
+const notesList = document.getElementById("notesList");
 
-// 🔹 Функция отображения всех заметок
+// ✅ Проверяем, загружается ли Firebase
+console.log("🔥 Firebase загружен:", firebase);
+
+// 📌 Функция отображения всех заметок
 function displayAll() {
     notesList.innerHTML = "";
 
-    // ⬇️ Изменено: теперь загружаем заметки из Firebase
+    // Загружаем заметки из Firebase
     db.ref("notes").on("value", (snapshot) => {
         notesList.innerHTML = ""; // Очищаем список перед обновлением
 
         snapshot.forEach((childSnapshot) => {
-            let noteData = childSnapshot.val(); // Получаем данные заметки
-            let noteKey = childSnapshot.key; // Уникальный ключ заметки
+            let noteData = childSnapshot.val();
+            let noteKey = childSnapshot.key;
 
             let li = document.createElement("li");
-            li.textContent = noteData.text; // ⬅️ Ранее использовался localStorage
+            li.textContent = noteData.text;
 
             let deleteButton = document.createElement("button");
             deleteButton.textContent = "Удалить";
@@ -41,12 +43,12 @@ function displayAll() {
             let changeButton = document.createElement("button");
             changeButton.textContent = "Редактировать";
 
-            // ⬇️ Изменено: теперь удаляем заметку из Firebase
+            // 📌 Удаление заметки
             deleteButton.addEventListener("click", () => {
                 db.ref("notes/" + noteKey).remove();
             });
 
-            // ⬇️ Изменено: теперь редактируем заметку в Firebase
+            // 📌 Редактирование заметки
             changeButton.addEventListener("click", () => {
                 li.innerHTML = "";
 
@@ -67,13 +69,13 @@ function displayAll() {
                         return;
                     }
 
-                    db.ref("notes/" + noteKey).update({ text: newText }); // ⬅️ Обновляем в Firebase
+                    db.ref("notes/" + noteKey).update({ text: newText });
 
-                    displayAll(); // Обновляем список
+                    displayAll();
                 });
 
                 cancelButton.addEventListener("click", () => {
-                    displayAll(); // Отменяем редактирование
+                    displayAll();
                 });
 
                 li.appendChild(editInput);
@@ -88,7 +90,7 @@ function displayAll() {
     });
 }
 
-// ⬇️ Изменено: теперь добавляем заметки в Firebase
+// 📌 Добавление новой заметки
 addNoteButton.addEventListener("click", () => {
     let textInput = noteInput.value.trim();
 
@@ -97,18 +99,15 @@ addNoteButton.addEventListener("click", () => {
         return;
     }
 
-    db.ref("notes").push({ // ⬅️ Теперь сохраняем в Firebase
-        text: textInput,
-        timestamp: Date.now()
-    });
+    db.ref("notes").push({ text: textInput, timestamp: Date.now() });
 
     noteInput.value = "";
 });
 
-// ⬇️ Изменено: теперь очищаем все заметки в Firebase
+// 📌 Очистка всех заметок
 clearNotesButton.addEventListener("click", () => {
-    db.ref("notes").remove(); // Удаляем все данные из базы
+    db.ref("notes").remove();
 });
 
-// Загружаем заметки при запуске (Firebase теперь основной источник данных)
+// 🚀 Загружаем заметки при запуске
 displayAll();
