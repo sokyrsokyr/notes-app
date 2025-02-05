@@ -1,13 +1,13 @@
 // 🔹 Подключение Firebase (ЗАМЕНИ НА СВОИ ДАННЫЕ!)
 const firebaseConfig = {
-    apiKey: "ТВОЙ_API_КЛЮЧ",
-    authDomain: "ТВОЙ_ПРОЕКТ.firebaseapp.com",
-    databaseURL: "https://ТВОЙ_ПРОЕКТ.firebaseio.com",
-    projectId: "ТВОЙ_ПРОЕКТ",
-    storageBucket: "ТВОЙ_ПРОЕКТ.appspot.com",
-    messagingSenderId: "ТВОЙ_ID",
-    appId: "ТВОЙ_APP_ID"
-};
+    apiKey: "AIzaSyDVl5kDmJnhKxxayNrfieRJ4W0oAGFWIGM",
+    authDomain: "notes-app-2d26e.firebaseapp.com",
+    databaseURL: "https://notes-app-2d26e-default-rtdb.firebaseio.com",
+    projectId: "notes-app-2d26e",
+    storageBucket: "notes-app-2d26e.firebasestorage.app",
+    messagingSenderId: "237083753552",
+    appId: "1:237083753552:web:041cea721cf41147e42555"
+  };
 
 // Инициализация Firebase
 firebase.initializeApp(firebaseConfig);
