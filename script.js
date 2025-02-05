@@ -1,17 +1,24 @@
-// 🔹 Подключение Firebase (ЗАМЕНИ НА СВОИ ДАННЫЕ!)
+// Импортируем модули Firebase
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+import { getDatabase, ref, onValue, set, remove } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+
+// Конфигурация Firebase
 const firebaseConfig = {
     apiKey: "AIzaSyDVl5kDmJnhKxxayNrfieRJ4W0oAGFWIGM",
     authDomain: "notes-app-2d26e.firebaseapp.com",
     databaseURL: "https://notes-app-2d26e-default-rtdb.firebaseio.com",
     projectId: "notes-app-2d26e",
-    storageBucket: "notes-app-2d26e.firebasestorage.app",
+    storageBucket: "notes-app-2d26e.appspot.com",
     messagingSenderId: "237083753552",
     appId: "1:237083753552:web:041cea721cf41147e42555"
-  };
+};
 
-// Инициализация Firebase
-firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
+// Инициализируем Firebase
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+// Проверяем, загружается ли Firebase
+console.log("Firebase загружается:", app);
 
 // 🔹 Функция отображения всех заметок
 function displayAll() {
